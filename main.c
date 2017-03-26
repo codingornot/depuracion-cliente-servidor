@@ -54,8 +54,8 @@ int main(int argc, char *argv[])
 
 int cliente(canal conexion)
 {
-	buffer  buf_mensaje;
-	buffer  buf_entrada;
+  buffer  buf_mensaje;
+  buffer  buf_entrada;
   mensaje msj;
   int     error;
   int     leidos;

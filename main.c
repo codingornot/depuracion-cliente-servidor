@@ -208,7 +208,7 @@ int servidor(canal conexion)
       salir = 1;
       break;
     }
-    
+
     error = responder(conexion, buf);
   }
 
@@ -217,17 +217,17 @@ int servidor(canal conexion)
 
 int maximo(int *numeros)
 {
-	int i;
-	int maxv;
-	int tam;
+  int i;
+  int maxv;
+  int tam;
 
-	/* El primer elemento indica el número de argumentos. */
-	tam = *numeros++;
+  /* El primer elemento indica el número de argumentos. */
+  tam = *numeros++;
 
-	for (i = 0; i < tam; i++)
-		if (maxv < numeros[i])
-			maxv = numeros[i];
+  for (i = 0; i < tam; i++)
+    if (maxv < numeros[i])
+      maxv = numeros[i];
 
-	return maxv;
+  return maxv;
 }
 

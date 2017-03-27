@@ -2,7 +2,7 @@ CC=cc
 
 BANDERAS_C=-c -Wall --pedantic-errors -Iinclude
 BANDERAS_GDB=-O0 -g3 -DDEBUG
-FUENTES=main.c canal.c debug.c
+FUENTES=main.c canal.c
 OBJETOS=$(FUENTES:.c=.o)
 EJECUTABLE=maximo
 

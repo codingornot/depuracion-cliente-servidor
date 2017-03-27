@@ -66,7 +66,6 @@ int solicitar(canal conexion, buffer mensaje)
 
   if (bytes > 0)
   {
-    printf("Se han enviado %d bytes al servidor\n", bytes);
     do {
       bytes = read(conexion->respuesta[RECIBIR], mensaje, TAM_BLOQUE);
     } while (bytes == 0);

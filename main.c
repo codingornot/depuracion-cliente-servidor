@@ -1,11 +1,24 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <string.h>
-#include <signal.h>
 #include <canal.h>
 #include <debug.h>
 
+/* ------------------------------ [ mensaje ] ------------------------------ */
+/*
+ * 4096 bytes ---------------------------------------------------------------.
+ *                                                                           |
+ * 8 bytes --------------------.                                             |
+ *                             |                                             |
+ * 4 bytes ---------.          |                                             |
+ *                  |          |                                             |
+ * 0 bytes --.      |          |                                             |
+ *           |      |          |                                             |
+ *           |      |          |                                             |
+ *           v      v          v                                             v
+ *           +------+----------+---------------------------------------------+
+ *           | tipo | cantidad | numeros[0] | numeros[1] |...| numeros[1021] |
+ *           +------+----------+---------------------------------------------+
+ */
 struct _mensaje
 {
   int tipo;
@@ -23,6 +36,24 @@ int cliente(canal conexion);
 int servidor(canal c);
 int maximo(int *);
 
+/* ------------------------------- [ main ] -------------------------------- */
+/*
+ *                     cliente
+ *                        |     fork()
+ *                        +-------------------> servidor
+ *                        |                        |
+ *                        |                        . atender()
+ *              <entrada> |                        . <espera>
+ *                        |     solicitar()        .
+ *                        `----------------------> *
+ *              <espera>  .                        | <procesa>
+ *                        .     responder()        |
+ *                        * <----------------------'
+ *                        |                        |
+ *                        |                        |
+ *                        v                        v
+ *
+ */
 int main(int argc, char *argv[])
 {
   canal  conexion;
@@ -74,7 +105,7 @@ int cliente(canal conexion)
     buffer_limpiar(buf_entrada);
 
     memset(palabra, 0, 256);
-    printf(" > ");
+    printf("? ");
     scanf("%s", palabra);
 
     if (strcmp("maximo", palabra) == 0)
@@ -85,7 +116,7 @@ int cliente(canal conexion)
       while (!error)
       {
         memset(palabra, 0, 256);
-        printf(" > ");
+        printf("> ");
         scanf("%s", palabra);
 
         numero = (int)strtol(palabra, &fin, 10);
@@ -107,6 +138,7 @@ int cliente(canal conexion)
         msj->tipo     = SOLICITUD;
         msj->cantidad = leidos;
 
+        breakpoint; /* <-- Este es el breakpoint */
         if (!(error = solicitar(conexion, buf_mensaje)))
         {
           if ((RESPUESTA_OK == msj->tipo))
@@ -184,6 +216,7 @@ int servidor(canal conexion)
   {
 
     buffer_limpiar(salida);
+    breakpoint; /* <-- Este es el breakpoint */
 
     switch(msj->tipo)
     {
@@ -217,9 +250,9 @@ int servidor(canal conexion)
 
 int maximo(int *numeros)
 {
-  int i;
-  int maxv;
+  int maxv = -1;
   int tam;
+  int i;
 
   /* El primer elemento indica el número de argumentos. */
   tam = *numeros++;

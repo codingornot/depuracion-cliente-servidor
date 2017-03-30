@@ -2,7 +2,7 @@
 
 ![](https://codingornot.files.wordpress.com/2017/03/debug1.png)
 
-Con lo visto hasta este punto de la serie, hemos  cubierto  herramientas  suficientes
+Con lo visto hasta este [punto de la serie][6], hemos  cubierto herramientas suficientes
 para que explotes las capacidades que **GDB** te ofrece para  encontrar  defectos  en
 tus programas. En esta ocasión te mostraré cómo utilizar el depurador de **GNU** para
 examinar aplicaciones cliente-servidor.  Las  recetas  que  te  presento  pueden  ser
@@ -373,4 +373,5 @@ muchos casos) los comandos que aquí has aprendido. ¡Hasta la próxima!
 [3]: https://github.com/codingornot/depuracion-cliente-servidor
 [4]: https://linux.die.net/man/1/pgrep
 [5]: https://linux.die.net/man/2/fork
+[6]: https://codingornot.com/category/serie-depuracion-de-software/
 
